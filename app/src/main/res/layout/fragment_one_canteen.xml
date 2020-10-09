@@ -21,6 +21,7 @@
             android:background="@drawable/shape_edit"
             android:drawableLeft="@drawable/search2"
             android:text="潮汕米粉..."
+            android:gravity="center_vertical"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="10dp"
@@ -206,15 +207,16 @@
             android:layout_marginLeft="10dp"
             />
 
-
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_restaurant"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
         />
 
 </LinearLayout>
