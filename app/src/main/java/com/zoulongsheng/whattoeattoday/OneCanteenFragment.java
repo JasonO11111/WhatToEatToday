@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.zoulongsheng.whattoeattoday.adapter.RestaurantAdapter;
 import com.zoulongsheng.whattoeattoday.beans.Restaurant;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +71,7 @@ public class OneCanteenFragment extends Fragment implements View.OnClickListener
         switch (v.getId()){
             case R.id.search:
                 Intent intent = new Intent(getContext(),SearchActivity.class);
+                intent.putExtra("restaurant_list",(Serializable) restaurantList);
                 startActivity(intent);
                 getActivity().overridePendingTransition(0,0);
                 break;

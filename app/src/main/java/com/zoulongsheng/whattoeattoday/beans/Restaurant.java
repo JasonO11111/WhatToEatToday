@@ -1,6 +1,8 @@
 package com.zoulongsheng.whattoeattoday.beans;
 
-public class Restaurant {
+import java.io.Serializable;
+
+public class Restaurant implements Serializable {
 
     private String name;        //店名
     private String location;    //位置
