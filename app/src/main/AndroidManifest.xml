@@ -20,6 +20,7 @@
         </activity>
         <activity
             android:name="com.zoulongsheng.whattoeattoday.module.search.SearchActivity"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -27,6 +28,7 @@
         </activity>
         <activity
             android:name=".IndexActivity"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="com.zoulongsheng.whattoeattoday.module.index.MainActivity"

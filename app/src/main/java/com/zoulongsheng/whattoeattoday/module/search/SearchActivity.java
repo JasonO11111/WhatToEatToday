@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,15 +19,25 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.zoulongsheng.whattoeattoday.adapter.HistoryAdapter;
+import com.zoulongsheng.whattoeattoday.adapter.HotAdapter;
+import com.zoulongsheng.whattoeattoday.beans.History;
+import com.zoulongsheng.whattoeattoday.beans.Hot;
 import com.zoulongsheng.whattoeattoday.module.index.MainActivity;
 import com.zoulongsheng.whattoeattoday.R;
 import com.zoulongsheng.whattoeattoday.adapter.RestaurantAdapter;
 import com.zoulongsheng.whattoeattoday.beans.Restaurant;
+import com.zoulongsheng.whattoeattoday.tools.dbcontroller.HistoryDatabaseController;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import android.os.SystemClock;
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher {
 
@@ -38,6 +49,13 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private ProgressBar progressBar;
     private TextView not_foundText;
     private RecyclerView recyclerView;
+    private RecyclerView hotRecycle;
+    private RecyclerView historyRecycle;
+    private List<Hot> hotList = new ArrayList<>();
+    private List<History> historyList = new ArrayList<>();
+    private LinearLayout hot_history_linearlayout;
+    HistoryDatabaseController historyDatabaseController;
+
     ArrayList<Restaurant> restaurants = new ArrayList<Restaurant>();
     private Handler handler = new Handler(){
         public void handleMessage(Message msg){
@@ -58,11 +76,15 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         }
     };
 
+    public SearchActivity() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         init();
+        initRecycle();
     }
 
     private void init(){
@@ -72,6 +94,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         progressBar = findViewById(R.id.loading);
         not_foundText = findViewById(R.id.not_found);
         recyclerView = findViewById(R.id.search_recycle_restaurant);
+        hotRecycle = findViewById(R.id.hot_recycle);
+        historyRecycle = findViewById(R.id.history_recycle);
+        hot_history_linearlayout = findViewById(R.id.hot_history_linearlayout);
+        historyDatabaseController = new HistoryDatabaseController(this);
         searchEdit.setFocusable(true);
         searchEdit.setFocusableInTouchMode(true);
         searchEdit.requestFocus();
@@ -79,6 +105,44 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         backImg.setOnClickListener(this);
         searchEdit.addTextChangedListener(this);
         search_btn.setOnClickListener(this);
+    }
+
+    private void initRecycle(){
+        Hot hot = new Hot();
+        hot.setName("1元开会员");
+        hotList.add(hot);
+        hot = new Hot();
+        hot.setName("奶茶");
+        hotList.add(hot);
+        hot = new Hot();
+        hot.setName("烧烤");
+        hotList.add(hot);
+        hot = new Hot();
+        hot.setName("杨国福");
+        hotList.add(hot);
+        hot = new Hot();
+        hot.setName("汉堡");
+        hotList.add(hot);
+        hot = new Hot();
+        hot.setName("炸鸡");
+        hotList.add(hot);
+        History history = new History();
+        history.setName("阿旺饭馆");
+        historyList.add(history);
+        historyList.add(history);
+        historyList.add(history);
+        historyList.add(history);
+        historyList.add(history);
+        historyList.add(history);
+        historyList = historyDatabaseController.queryData();
+        StaggeredGridLayoutManager layoutManagerHot = new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.VERTICAL);
+        hotRecycle.setLayoutManager(layoutManagerHot);
+        HotAdapter hotAdapter = new HotAdapter(hotList);
+        hotRecycle.setAdapter(hotAdapter);
+        StaggeredGridLayoutManager layoutManagerHistory = new StaggeredGridLayoutManager(5,StaggeredGridLayoutManager.VERTICAL);
+        historyRecycle.setLayoutManager(layoutManagerHistory);
+        HistoryAdapter historyAdapter = new HistoryAdapter(historyList);
+        historyRecycle.setAdapter(historyAdapter);
     }
 
     @Override
@@ -112,7 +176,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     public void search(){
         restaurants.clear();
-
+        hot_history_linearlayout.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
         not_foundText.setVisibility(View.GONE);
         recyclerView.setVisibility(View.GONE);
@@ -131,6 +195,13 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             });
             alertDialog.show();
         }else{
+            SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日   HH:mm:ss");
+            Date curDate = new Date(System.currentTimeMillis());
+            String str = format.format(curDate);
+            History history = new History();
+            history.setName(searchStr);
+            history.setTime(str);
+            historyDatabaseController.insertData(history);
             progressBar.setVisibility(View.VISIBLE);
             new Thread(new Runnable() {
                 @Override
