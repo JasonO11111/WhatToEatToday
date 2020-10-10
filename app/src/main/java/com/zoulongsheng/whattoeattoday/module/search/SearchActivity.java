@@ -1,12 +1,10 @@
-package com.zoulongsheng.whattoeattoday;
+package com.zoulongsheng.whattoeattoday.module.search;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.zoulongsheng.whattoeattoday.module.index.MainActivity;
+import com.zoulongsheng.whattoeattoday.R;
 import com.zoulongsheng.whattoeattoday.adapter.RestaurantAdapter;
 import com.zoulongsheng.whattoeattoday.beans.Restaurant;
 
@@ -85,7 +85,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.back:
-                Intent intent = new Intent(SearchActivity.this,MainActivity.class);
+                Intent intent = new Intent(SearchActivity.this, MainActivity.class);
                 startActivity(intent);
                 overridePendingTransition(0,0);
                 break;

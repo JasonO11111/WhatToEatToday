@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".StartUpPageActivity"
+            android:name="com.zoulongsheng.whattoeattoday.module.startuppage.StartUpPageActivity"
             android:theme="@style/AppTheme.Splash"
             >
             <intent-filter>
@@ -19,17 +19,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SearchActivity"
+            android:name="com.zoulongsheng.whattoeattoday.module.search.SearchActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.zoulongsheng.whattoeattoday.MainActivity" />
+                android:value="com.zoulongsheng.whattoeattoday.module.index.MainActivity" />
         </activity>
         <activity
             android:name=".IndexActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.zoulongsheng.whattoeattoday.module.index.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->

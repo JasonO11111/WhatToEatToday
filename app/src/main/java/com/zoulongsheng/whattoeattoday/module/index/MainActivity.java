@@ -1,21 +1,22 @@
-package com.zoulongsheng.whattoeattoday;
+package com.zoulongsheng.whattoeattoday.module.index;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.zoulongsheng.whattoeattoday.tools.StatusBarUtils;
+import com.zoulongsheng.whattoeattoday.R;
+
+import com.zoulongsheng.whattoeattoday.module.fourcanteen.FourCanteenFragment;
+import com.zoulongsheng.whattoeattoday.module.onecanteen.OneCanteenFragment;
+import com.zoulongsheng.whattoeattoday.module.threecanteen.ThreeCanteenFragment;
+import com.zoulongsheng.whattoeattoday.module.twocanteen.TwoCanteenFragment;
 
 public class MainActivity extends AppCompatActivity{
 

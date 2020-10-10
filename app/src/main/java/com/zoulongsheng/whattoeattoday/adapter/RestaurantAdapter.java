@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,6 +32,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         TextView restaurantDescrition2;
         TextView restaurantDiscount1;
         TextView restaurantDiscount2;
+        ImageView pop_img;
 
         public ViewHolder(View view){
             super(view);
@@ -45,6 +47,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             restaurantDescrition2 = view.findViewById(R.id.restaurant_descrition2);
             restaurantDiscount1 = view.findViewById(R.id.restaurant_discount1);
             restaurantDiscount2 = view.findViewById(R.id.restaurant_discount2);
+            pop_img = view.findViewById(R.id.pop_img);
         }
 
     }
@@ -57,7 +60,23 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
     @Override
     public RestaurantAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurant_item,parent,false);
-        ViewHolder holder = new ViewHolder(view);
+        final ViewHolder holder = new ViewHolder(view);
+        holder.pop_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getPosition();
+                Restaurant restaurant = mRestaurantList.get(position);
+                Toast.makeText(v.getContext(),"you click pop img"+restaurant.getName(),Toast.LENGTH_SHORT).show();
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getPosition();
+                Restaurant restaurant = mRestaurantList.get(position);
+                Toast.makeText(v.getContext(),"you click item view"+restaurant.getName(),Toast.LENGTH_SHORT).show();
+            }
+        });
         return holder;
     }
 

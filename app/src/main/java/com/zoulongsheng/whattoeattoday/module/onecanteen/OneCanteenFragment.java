@@ -1,4 +1,4 @@
-package com.zoulongsheng.whattoeattoday;
+package com.zoulongsheng.whattoeattoday.module.onecanteen;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,13 +6,14 @@ import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.zoulongsheng.whattoeattoday.R;
+import com.zoulongsheng.whattoeattoday.module.search.SearchActivity;
 import com.zoulongsheng.whattoeattoday.adapter.RestaurantAdapter;
 import com.zoulongsheng.whattoeattoday.beans.Restaurant;
 
@@ -70,7 +71,7 @@ public class OneCanteenFragment extends Fragment implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.search:
-                Intent intent = new Intent(getContext(),SearchActivity.class);
+                Intent intent = new Intent(getContext(), SearchActivity.class);
                 intent.putExtra("restaurant_list",(Serializable) restaurantList);
                 startActivity(intent);
                 getActivity().overridePendingTransition(0,0);
