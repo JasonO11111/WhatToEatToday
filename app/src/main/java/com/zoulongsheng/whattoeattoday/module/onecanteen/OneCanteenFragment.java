@@ -50,7 +50,7 @@ public class OneCanteenFragment extends Fragment implements View.OnClickListener
     }
 
     public void initRestaurant(){
-        Restaurant res1 = new Restaurant("阿旺饭馆（华广店）","花都区华广",120,110,10,R.drawable.res1,"60","起送￥24  免配送费  人均￥23","华广饭馆人气第1名","点评高分店铺","30减1  |  60减5  |  80减8","4元无门栏红包");
+        Restaurant res1 = new Restaurant("狗哥饭馆（华广店）","花都区华广",120,110,10,R.drawable.res1,"60","起送￥24  免配送费  人均￥23","华广饭馆人气第1名","点评高分店铺","30减1  |  60减5  |  80减8","4元无门栏红包");
         restaurantList.add(res1);
         Restaurant res2 = new Restaurant("治国饭馆（华广店）","花都区华广",120,110,10,R.drawable.res2,"30","起送￥14  免配送费  人均￥13","华广饭馆人气第2名","点评高分店铺","20减1  |  40减5  |  52减8","5元无门栏红包");
         restaurantList.add(res2);

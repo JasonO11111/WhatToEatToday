@@ -1,5 +1,7 @@
 package com.zoulongsheng.whattoeattoday.adapter;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.zoulongsheng.whattoeattoday.R;
 import com.zoulongsheng.whattoeattoday.beans.Restaurant;
+import com.zoulongsheng.whattoeattoday.module.restaurant.RestaurantActivity;
 
 import java.util.List;
 
@@ -74,6 +77,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             public void onClick(View v) {
                 int position = holder.getPosition();
                 Restaurant restaurant = mRestaurantList.get(position);
+                Intent intent = new Intent(v.getContext(), RestaurantActivity.class);
+                v.getContext().startActivity(intent);
                 Toast.makeText(v.getContext(),"you click item view"+restaurant.getName(),Toast.LENGTH_SHORT).show();
             }
         });
