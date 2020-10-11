@@ -22,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.zoulongsheng.whattoeattoday.adapter.HistoryAdapter;
 import com.zoulongsheng.whattoeattoday.adapter.HotAdapter;
 import com.zoulongsheng.whattoeattoday.beans.History;
@@ -55,6 +54,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private List<History> historyList = new ArrayList<>();
     private LinearLayout hot_history_linearlayout;
     HistoryDatabaseController historyDatabaseController;
+    private ImageView trash_can_btn;
+    HistoryAdapter historyAdapter;
+    private TextView history_text;
 
     ArrayList<Restaurant> restaurants = new ArrayList<Restaurant>();
     private Handler handler = new Handler(){
@@ -85,6 +87,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_search);
         init();
         initRecycle();
+        judgeCash();
     }
 
     private void init(){
@@ -97,6 +100,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         hotRecycle = findViewById(R.id.hot_recycle);
         historyRecycle = findViewById(R.id.history_recycle);
         hot_history_linearlayout = findViewById(R.id.hot_history_linearlayout);
+        trash_can_btn = findViewById(R.id.trash_can_btn);
+        history_text = findViewById(R.id.history_text);
         historyDatabaseController = new HistoryDatabaseController(this);
         searchEdit.setFocusable(true);
         searchEdit.setFocusableInTouchMode(true);
@@ -105,6 +110,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         backImg.setOnClickListener(this);
         searchEdit.addTextChangedListener(this);
         search_btn.setOnClickListener(this);
+        trash_can_btn.setOnClickListener(this);
     }
 
     private void initRecycle(){
@@ -141,8 +147,26 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         hotRecycle.setAdapter(hotAdapter);
         StaggeredGridLayoutManager layoutManagerHistory = new StaggeredGridLayoutManager(5,StaggeredGridLayoutManager.VERTICAL);
         historyRecycle.setLayoutManager(layoutManagerHistory);
-        HistoryAdapter historyAdapter = new HistoryAdapter(historyList);
+        historyAdapter = new HistoryAdapter(historyList);
         historyRecycle.setAdapter(historyAdapter);
+    }
+
+    public void judgeCash(){
+        if(historyList.size() == 0){
+            trash_can_btn.setVisibility(View.GONE);
+            history_text.setVisibility(View.GONE);
+        }else{
+            trash_can_btn.setVisibility(View.VISIBLE);
+            history_text.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void clearHistory(){
+        historyDatabaseController.delData();
+        historyList.clear();
+        historyAdapter.notifyDataSetChanged();
+        trash_can_btn.setVisibility(View.GONE);
+        history_text.setVisibility(View.GONE);
     }
 
     @Override
@@ -155,6 +179,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.search_btn:
                 search();
+                break;
+            case R.id.trash_can_btn:
+                clearHistory();
                 break;
         }
     }

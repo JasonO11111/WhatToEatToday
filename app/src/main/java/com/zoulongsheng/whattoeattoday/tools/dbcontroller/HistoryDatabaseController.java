@@ -45,7 +45,7 @@ public class HistoryDatabaseController {
      * 删除数据
      */
     public void delData(){
-        db.delete("History","name != ",new String[]{null});
+        db.delete("History","name != ?",new String[]{"null"});
     }
 
     /**
